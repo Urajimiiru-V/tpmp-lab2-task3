@@ -1,0 +1,36 @@
+name: C Build and Test - Task3
+
+on:
+  push:
+    branches: [ "main", "development" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Build with Make
+      run: make
+      
+    - name: Run program with test input
+      run: |
+        echo "Vova
+        123-43-54
+        20 04 2007
+        Anya
+        332-84-32
+        03 11 2009
+        Columbus
+        111-11-11
+        01 01 1492
+        NicolasTheSecond
+        123-64-31
+        04 05 1875
+        Somebody
+        000-00-00
+        01 01 0001" | ./note_program
