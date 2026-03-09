@@ -3,20 +3,19 @@ CFLAGS=-Wall -Wextra -std=c99 -I./src
 TARGET=note_program
 SRCDIR=src
 SOURCES=$(wildcard $(SRCDIR)/*.c)
-OBJECTS=$(SOURCES:.c=.o)
 
-all: $(TARGET)
+all: clean $(TARGET)
 
-$(TARGET): $(OBJECTS)
-	$(CC) $^ -o $@
+$(TARGET): $(SOURCES)
+	$(CC) $(CFLAGS) $(SOURCES) -o $(TARGET)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+force-rebuild: clean
+	$(CC) $(CFLAGS) $(SOURCES) -o $(TARGET)
 
 clean:
-	rm -f $(OBJECTS) $(TARGET)
+	rm -f $(TARGET) $(SRCDIR)/*.o
 
 run: $(TARGET)
 	./$(TARGET)
 
-.PHONY: all clean run
+.PHONY: all clean run force-rebuild
